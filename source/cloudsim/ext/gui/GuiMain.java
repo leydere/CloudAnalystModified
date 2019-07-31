@@ -56,7 +56,10 @@ private static final String CMD_ABOUT = "About";
 	private static final String CONFIG_SCREEN = "configScreen";
 	private static final String CMD_RUN_SIMULATION = "Run Simulation";
 	private static final String CMD_EXIT = "Exit";
-	private static final String CMD_CONFIGURE_SIMULATION = "Configure Simulation";	
+	private static final String CMD_CONFIGURE_SIMULATION = "Configure Simulation";
+	private static final String CMD_SHOW_MAP1 = "Show Map 1"; // ANP branch -ERL 
+	private static final String CMD_SHOW_MAP2 = "Show Map 2"; // ANP branch -ERL
+	private static final String CMD_SHOW_MAP3 = "Show Map 3"; // ANP branch -ERL
 	private static final Dimension MENU_BUTTON_SIZE = new Dimension(120, 40);
 	private static final Dimension FRAME_SIZE = new Dimension(800, 600);
 	private static final int MENU_BTN_V_GAP = 10;
@@ -72,7 +75,7 @@ private static final String CMD_ABOUT = "About";
 	private JProgressBar progressBar;
 	private JPanel messagePanel;
 	private JPanel busyMessagePnl;
-	private JToggleButton btnShowBoundaries;
+	private JToggleButton btnShowBoundaries; // multiple references preventing from commenting out; ANP branch -ERL
 	private boolean simulationStarted = false;
 	private boolean simulationFinished = false;
 	private JPanel simulationControlPanel;
@@ -81,6 +84,12 @@ private static final String CMD_ABOUT = "About";
 	private JButton btnResults;
 	private JButton btnExportResults;
 	private JDialog abtDlg;
+	private JButton btnShowMap1; // ANP branch -ERL
+	private JButton btnShowMap2; // ANP branch -ERL
+	private JButton btnShowMap3; // ANP branch -ERL
+	private static boolean boolShowMap1 = true; // ANP branch -ERL
+	private static boolean boolShowMap2 = false; // ANP branch -ERL
+	private static boolean boolShowMap3 = false; // ANP branch -ERL
 	
 	/** No args constructor */
 	public GuiMain() throws Exception{	
@@ -130,11 +139,31 @@ private static final String CMD_ABOUT = "About";
 			
 			simulationControlPanel = new JPanel();
 			simulationControlPanel.setLayout(new BoxLayout(simulationControlPanel, BoxLayout.X_AXIS));
+			/* // commented out for ANP branch -ERL
 			btnShowBoundaries = new JToggleButton("Show Region Boundaries");
 			btnShowBoundaries.setActionCommand(CMD_SHOW_BOUNDARIES);
 			btnShowBoundaries.addActionListener(this);
 			simulationControlPanel.add(Box.createHorizontalGlue());
 			simulationControlPanel.add(btnShowBoundaries);
+			*/
+			
+			btnShowMap1 = new JButton("Show Map 1"); // ANP branch -ERL
+			btnShowMap1.setActionCommand(CMD_SHOW_MAP1); // ANP branch -ERL
+			btnShowMap1.addActionListener(this); // ANP branch -ERL
+			simulationControlPanel.add(Box.createHorizontalGlue()); // ANP branch -ERL
+			simulationControlPanel.add(btnShowMap1); // ANP branch -ERL
+			
+			btnShowMap2 = new JButton("Show Map 2"); // ANP branch -ERL
+			btnShowMap2.setActionCommand(CMD_SHOW_MAP2); // ANP branch -ERL
+			btnShowMap2.addActionListener(this); // ANP branch -ERL
+			simulationControlPanel.add(Box.createHorizontalStrut(20)); // ANP branch -ERL
+			simulationControlPanel.add(btnShowMap2); // ANP branch -ERL
+			
+			btnShowMap3 = new JButton("Show Map 3"); // ANP branch -ERL
+			btnShowMap3.setActionCommand(CMD_SHOW_MAP3); // ANP branch -ERL
+			btnShowMap3.addActionListener(this); // ANP branch -ERL
+			simulationControlPanel.add(Box.createHorizontalStrut(20)); // ANP branch -ERL
+			simulationControlPanel.add(btnShowMap3); // ANP branch -ERL
 			
 			simulationControlPanel.setBorder(new EmptyBorder(5, 5, 25, 25));
 			simulationScreen.add(simulationControlPanel, BorderLayout.SOUTH);
@@ -375,9 +404,35 @@ private static final String CMD_ABOUT = "About";
 			}
 			
 			abtDlg.setVisible(true);
+		} else if (e.getActionCommand().equals(CMD_SHOW_MAP1)) { // ANP branch -ERL
+			boolShowMap1 = true;
+			boolShowMap2 = false;
+			boolShowMap3 = false;
+			this.repaint(); // necessary for paint method to recheck what it should paint; ANP branch -ERL
+		} else if (e.getActionCommand().equals(CMD_SHOW_MAP2)) { // ANP branch -ERL
+			boolShowMap1 = false;
+			boolShowMap2 = true;
+			boolShowMap3 = false;
+			this.repaint(); // necessary for paint method to recheck what it should paint; ANP branch -ERL
+		} else if (e.getActionCommand().equals(CMD_SHOW_MAP3)) { // ANP branch -ERL
+			boolShowMap1 = false;
+			boolShowMap2 = false;
+			boolShowMap3 = true;
+			this.repaint(); // necessary for paint method to recheck what it should paint; ANP branch -ERL
 		}
 	}
-
+	
+	public static boolean returnBoolShowMap1() { // ANP branch -ERL
+		return boolShowMap1;
+	}
+	
+	public static boolean returnBoolShowMap2() { // ANP branch -ERL
+		return boolShowMap2;
+	}
+	
+	public static boolean returnBoolShowMap3() { // ANP branch -ERL
+		return boolShowMap3;
+	}
 
 	public void cloudSimEventFired(CloudSimEvent e) {
 		if (e.getId() == CloudSimEvents.EVENT_SIMULATION_ENDED){

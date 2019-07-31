@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import cloudsim.ext.Constants;
 import cloudsim.ext.event.CloudSimEvent;
 import cloudsim.ext.event.CloudSimEventListener;
+import cloudsim.ext.gui.GuiMain;
 import cloudsim.ext.gui.SimulationUIElement;
 import cloudsim.ext.gui.UserBaseUIElement;
 import cloudsim.ext.gui.utils.CommunicationPath;
@@ -45,6 +46,7 @@ public class SimulationPanel extends JPanel implements CloudSimEventListener {
 	private final int mapHeight = 460;
 	private BufferedImage map1;
 	private BufferedImage map2;
+	private BufferedImage map3; // ANP branch -ERL
 	private final Map<String, SimulationUIElement> internetEntities;
 	private final Set<CommunicationPath> communicationPaths;
 	private Set<JLabel> resultsPanels;
@@ -56,10 +58,12 @@ public class SimulationPanel extends JPanel implements CloudSimEventListener {
 		//File mapFile2 = new File("resources/map2.png");
 		InputStream mapFile1 = getClass().getClassLoader().getResourceAsStream("map1.png");
 		InputStream mapFile2 = getClass().getClassLoader().getResourceAsStream("map2.png");
+		InputStream mapFile3 = getClass().getClassLoader().getResourceAsStream("map3.png"); // ANP branch -ERL
 
 		try {
 			map1 = ImageIO.read(mapFile1);
 			map2 = ImageIO.read(mapFile2);
+			map3 = ImageIO.read(mapFile3); // ANP branch -ERL
 		} catch (IOException e) {
 			throw new RuntimeException("Couldn't load the map file.");
 		}
@@ -80,10 +84,18 @@ public class SimulationPanel extends JPanel implements CloudSimEventListener {
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 
-		if (!showBoundaries){
+		/*if (!showBoundaries){ // commented out for ANP branch -ERL
 			g2.drawImage(map1, 0, 0, mapWidth, mapHeight, null);
 		} else {
 			g2.drawImage(map2, 0, 0, mapWidth, mapHeight, null);
+		}*/
+		
+		if (GuiMain.returnBoolShowMap1()) { // ANP branch -ERL
+			g2.drawImage(map1, 0, 0, mapWidth, mapHeight, null);
+		} else if (GuiMain.returnBoolShowMap2()) { // ANP branch -ERL
+			g2.drawImage(map2, 0, 0, mapWidth, mapHeight, null);
+		} else if (GuiMain.returnBoolShowMap3()) { // ANP branch -ERL
+			g2.drawImage(map3, 0, 0, mapWidth, mapHeight, null);
 		}
 
 		drawInternetEntities(g2);
