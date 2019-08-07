@@ -42,8 +42,8 @@ public class SimulationPanel extends JPanel implements CloudSimEventListener {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final int mapWidth = 800;
-	private final int mapHeight = 460;
+	private final int mapWidth = 1280; // DC/UB branch originally 800 -ERL
+	private final int mapHeight = 553; // DC/UB branch originally 460 -ERL
 	private BufferedImage map1;
 	private BufferedImage map2;
 	private BufferedImage map3; // ANP branch -ERL

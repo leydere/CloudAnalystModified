@@ -111,7 +111,7 @@ public class InternetEntitityRegistry extends BaseCloudSimObservable
 		int existingElems = regionalList.size();
 		Shape regionBoundary = WorldGeometry.getInstance().getBoundary(region);
 		Point2D center = new Point2D.Double(regionBoundary.getBounds().getCenterX(),
-											regionBoundary.getBounds().getCenterY());
+											regionBoundary.getBounds().getCenterY()); // change to accommodate specific 2D point; DC/UB branch -ERL
 		Point2D pos = getPosition(existingElems, center);
 		elem.setLocation(pos);
 	}

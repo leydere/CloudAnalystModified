@@ -149,7 +149,7 @@ public class ConfigureSimulationPanel extends JPanel
 		
 		initListLocalCopies();
 		
-		regionCombo = new JComboBox(new Integer[]{0, 1, 2, 3, 4, 5});
+		regionCombo = new JComboBox(new Integer[]{0, 1, 2, 3, 4, 5}); // DC/UB branch -ERL 
 		archCombo = new JComboBox(new String[]{DEFAULT_ARCHITECTURE});
 		osCombo = new JComboBox(new String[]{DEFAULT_OS});
 		vmmCombo = new JComboBox(new String[]{DEFAULT_VMM});
@@ -1044,7 +1044,7 @@ public class ConfigureSimulationPanel extends JPanel
 			this.data = data;
 			
 			setColumnNames(new String[]{"Name", 
-										 "Region", 
+										 "Location", 
 										 "Requests per\nUser \nper Hr",
 										 "Data Size \nper Request \n(bytes)",
 										 "Peak Hours \nStart (GMT)",
@@ -1136,7 +1136,7 @@ public class ConfigureSimulationPanel extends JPanel
 		public DataCenterTableModel(List<DataCenterUIElement> data) {
 			super();
 			setColumnNames(new String[]{"Name", 
-										 "Region", 
+										 "Location", 
 										 "Arch",
 										 "OS",
 										 "VMM",

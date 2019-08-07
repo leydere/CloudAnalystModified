@@ -32,6 +32,7 @@ import gridsim.util.Poisson;
 public class UserBase extends CloudSim implements GeoLocatable {
 	
 	private static final int STANDARD_POISSON_DIST_MEAN = 100;
+	private int location; // DC/UB branch -ERL
 	private int region;
 	private int instructionLengthPerRequest;
 	private int messagesReceived = 0;	
@@ -60,6 +61,7 @@ public class UserBase extends CloudSim implements GeoLocatable {
 	
 	/** Constructor .*/
 	public UserBase(String name, 
+					//int location, // DC/UB branch -ERL
 					int region,
 					int requestsPerUserPerHour,
 					int[] peakHours,
@@ -73,6 +75,7 @@ public class UserBase extends CloudSim implements GeoLocatable {
 		System.out.println(GridSim.clock() + " Creating new user base " + get_name());
 		
 		this.region = region;
+		this.location = location; // DC/UB branch -ERL
 		this.instructionLengthPerRequest = instructionLengthPerRequest;
 		this.requestsPerUserPerHour = requestsPerUserPerHour;
 		this.peakAvgUsers = peakAvgUsers;
@@ -194,7 +197,12 @@ public class UserBase extends CloudSim implements GeoLocatable {
 		return (int) (avgUsers * userCountDistribution.sample() / STANDARD_POISSON_DIST_MEAN);
 	}
 	
+	public int getLocation() { // DC/UB branch -ERL
+		return location;
+	}
+	
 	public int getRegion() {
+		System.out.print(region); // DC/UB  branch -ERL
 		return region;
 	}
 	
