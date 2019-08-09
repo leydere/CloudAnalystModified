@@ -103,6 +103,7 @@ public class ConfigureSimulationPanel extends JPanel
 	private JTextField txtSimDuration;
 	private JComboBox cmbTimeUnit;
 	private JComboBox regionCombo;
+	private JComboBox locationCombo; // cityLoc -ERL
 	
 	/** fileChooser is used for both open and save dialog for configurations. */
 	private JFileChooser fileChooser;
@@ -149,10 +150,11 @@ public class ConfigureSimulationPanel extends JPanel
 		
 		initListLocalCopies();
 		
-		regionCombo = new JComboBox(new Integer[]{0, 1, 2, 3, 4, 5}); // DC/UB branch -ERL 
+		regionCombo = new JComboBox(new Integer[]{0, 1, 2, 3, 4, 5}); 
 		archCombo = new JComboBox(new String[]{DEFAULT_ARCHITECTURE});
 		osCombo = new JComboBox(new String[]{DEFAULT_OS});
 		vmmCombo = new JComboBox(new String[]{DEFAULT_VMM});
+		locationCombo = new JComboBox(new String[]{"null", "Chicago"}); // cityLoc -ERL
 		multilineHeaderRenderer = new MultilineTableHeaderRenderer();
 		initUI();
 	}
@@ -546,7 +548,8 @@ public class ConfigureSimulationPanel extends JPanel
 	    dcTableColumnModel.getColumn(2).setCellEditor(new DefaultCellEditor(archCombo));
 		dcTableColumnModel.getColumn(3).setCellEditor(new DefaultCellEditor(osCombo));
 		dcTableColumnModel.getColumn(4).setCellEditor(new DefaultCellEditor(vmmCombo));
-	    
+		dcTableColumnModel.getColumn(10).setCellEditor(new DefaultCellEditor(locationCombo)); // cityLoc -ERL
+			    
 		dataCentersTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane dcScroller = new JScrollPane(dataCentersTable);
 		dataCentersTable.setPreferredScrollableViewportSize(TABLE_DIMENSION);		
@@ -1044,7 +1047,7 @@ public class ConfigureSimulationPanel extends JPanel
 			this.data = data;
 			
 			setColumnNames(new String[]{"Name", 
-										 "Location", 
+										 "Region", 
 										 "Requests per\nUser \nper Hr",
 										 "Data Size \nper Request \n(bytes)",
 										 "Peak Hours \nStart (GMT)",
@@ -1136,7 +1139,7 @@ public class ConfigureSimulationPanel extends JPanel
 		public DataCenterTableModel(List<DataCenterUIElement> data) {
 			super();
 			setColumnNames(new String[]{"Name", 
-										 "Location", 
+										 "Region", 
 										 "Arch",
 										 "OS",
 										 "VMM",
@@ -1144,9 +1147,10 @@ public class ConfigureSimulationPanel extends JPanel
 										 "Memory \nCost $/s",
 										 "Storage \nCost $/s",
 										 "Data \nTransfer \nCost $/Gb",
-										 "Physical \nHW \nUnits"});
+										 "Physical \nHW \nUnits",
+										 "Location"}); // cityLoc -ERL
 			setUniqueColumns(new int[]{0});
-			setNotNullColumns(new int[]{0,1,2,3,4,5,6,7,8,9});
+			setNotNullColumns(new int[]{0,1,2,3,4,5,6,7,8,9,10}); // added 10; cityLoc -ERL
 			this.data = data;
 		}
 		
