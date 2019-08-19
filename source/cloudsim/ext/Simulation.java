@@ -106,7 +106,8 @@ public class Simulation extends BaseCloudSimObservable implements Constants {
 																 DEFAULT_COST_PER_PROC,
 														 		 DEFAULT_COST_PER_MEM,
 																 DEFAULT_COST_PER_STOR,
-																 DEFAULT_COST_PER_BW);
+																 DEFAULT_COST_PER_BW,
+																 DEFAULT_CITY_LOCATION); //cityLoc -ERL
 		MachineUIElement machine1 = new MachineUIElement(DEFAULT_MC_MEMORY,
 														 DEFAULT_MC_STORAGE,
 														 DEFAULT_MC_BW,

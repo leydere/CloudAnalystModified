@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.javatuples.Triplet;
+
 public class DataCenterUIElement extends SimulationUIElement implements Serializable {
 	
 	/**
@@ -22,6 +24,7 @@ public class DataCenterUIElement extends SimulationUIElement implements Serializ
 	private double costPerMem;
 	private double costPerStorage;
 	private double costPerBw;
+	private Triplet<String,Integer,Integer> cityLocation; // cityLoc -ERL
 	private List<MachineUIElement> machineList;		
 	private VmAllocationUIElement vmAllocation;
 
@@ -38,7 +41,8 @@ public class DataCenterUIElement extends SimulationUIElement implements Serializ
 							   double costPerProc,
 							   double costPerMem,
 							   double costPerStor,
-							   double costPerBw){
+							   double costPerBw,
+							   Triplet<String,Integer,Integer> cityLocation){ // cityLoc -ERL
 		super(name, region);
 		this.architecture = architecture;
 		this.os = os;
@@ -48,6 +52,7 @@ public class DataCenterUIElement extends SimulationUIElement implements Serializ
 		this.costPerMem = costPerMem;
 		this.costPerStorage = costPerStor;
 		this.costPerBw = costPerBw;
+		this.cityLocation = cityLocation; // cityLoc -ERL
 		
 		this.machineList = new ArrayList<MachineUIElement>();
 	}
@@ -81,6 +86,13 @@ public class DataCenterUIElement extends SimulationUIElement implements Serializ
 		this.costPerProcessor = costPerProcessor;
 	}
 
+	public Triplet<String,Integer,Integer> getCityLocation(){ // cityLoc -ERL
+		return cityLocation;
+	}
+	
+	public void setCityLocation(Triplet<String,Integer,Integer> cityLocation) { // cityLoc -ERL
+		this.cityLocation = cityLocation;
+	}
 
 	/**
 	 * @return the costPerMem

@@ -1,5 +1,7 @@
 package cloudsim.ext;
 
+import org.javatuples.Triplet;
+
 public interface Constants {
 
 	final String STANDARD_SEPARATOR = "-";
@@ -48,6 +50,7 @@ public interface Constants {
 	final double DEFAULT_COST_PER_MEM = 0.05; // the cost of using memory in this resource
 	final double DEFAULT_COST_PER_STOR = 0.1; // the cost of using storage in this resource
 	final double DEFAULT_COST_PER_BW = 0.1;
+	final Triplet<String,Integer,Integer> DEFAULT_CITY_LOCATION = Triplet.with(null, -1, -1); // cityLoc -ERL
 
 	final int DEFAULT_MC_MEMORY = 204800;
 	final long DEFAULT_MC_STORAGE = 100000000;

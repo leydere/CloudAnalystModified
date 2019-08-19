@@ -37,6 +37,8 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import org.javatuples.Triplet;
+
 import cloudsim.ext.Constants;
 import cloudsim.ext.Simulation;
 import cloudsim.ext.event.CloudSimEvent;
@@ -137,6 +139,8 @@ public class ConfigureSimulationPanel extends JPanel
 	private JComboBox cmbServiceBroker;
 	private JComboBox cmbLoadBalancingPolicy;
 	
+	private Triplet<String,Integer,Integer>[] cityLocationComboArray; // cityLoc -ERL
+	
 
 	/** 
 	 * Constructor.
@@ -154,9 +158,12 @@ public class ConfigureSimulationPanel extends JPanel
 		archCombo = new JComboBox(new String[]{DEFAULT_ARCHITECTURE});
 		osCombo = new JComboBox(new String[]{DEFAULT_OS});
 		vmmCombo = new JComboBox(new String[]{DEFAULT_VMM});
-		locationCombo = new JComboBox(new String[]{"null", "Chicago"}); // cityLoc -ERL
+		locationCombo = new JComboBox(cityLocationComboArray = new Triplet[2]); // cityLoc -ERL
 		multilineHeaderRenderer = new MultilineTableHeaderRenderer();
 		initUI();
+		
+		cityLocationComboArray[0] = Triplet.with(null, -1, -1); //cityLoc -ERL
+		cityLocationComboArray[1] = Triplet.with("Chicago", 4, 5); //cityLoc -ERL
 	}
 	
 	/**
@@ -625,7 +632,8 @@ public class ConfigureSimulationPanel extends JPanel
 															 DEFAULT_COST_PER_PROC,
 															 DEFAULT_COST_PER_MEM,
 															 DEFAULT_COST_PER_STOR,
-															 DEFAULT_COST_PER_BW);
+															 DEFAULT_COST_PER_BW,
+															 DEFAULT_CITY_LOCATION); // cityLoc -ERL
 		
 		addNewDefaultMachine(newDc);
 		dataCenterList.add(newDc);
@@ -1198,6 +1206,9 @@ public class ConfigureSimulationPanel extends JPanel
 			case 9: 
 				value = dc.getMachineList().size();
 				break;
+			case 10:
+				value = dc.getCityLocation(); // cityLoc -ERL
+				break;
 			default: 
 				break;
 			}
@@ -1247,6 +1258,9 @@ public class ConfigureSimulationPanel extends JPanel
 				break;
 			case 9: 
 				//Can't set this value
+				break;
+			case 10:
+				dc.setCityLocation((Triplet<String,Integer,Integer>) value); // cityLoc -ERL
 				break;
 			default: 
 				break;
@@ -1439,4 +1453,5 @@ public class ConfigureSimulationPanel extends JPanel
             }
         }
 	}
+	
 }
